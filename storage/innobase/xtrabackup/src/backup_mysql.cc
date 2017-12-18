@@ -950,7 +950,7 @@ kill_query_thread(
 
 	while (time(NULL) - start_time <
 				(time_t)opt_kill_long_queries_timeout) {
-		if (os_event_wait_time(kill_query_thread_stop, 1000) !=
+		if (os_event_wait_time(kill_query_thread_stop, 100) !=
 		    OS_SYNC_TIME_EXCEEDED) {
 			goto stop_thread;
 		}
@@ -963,7 +963,7 @@ kill_query_thread(
 
 	while (true) {
 		kill_long_queries(mysql, time(NULL) - start_time);
-		if (os_event_wait_time(kill_query_thread_stop, 1000) !=
+		if (os_event_wait_time(kill_query_thread_stop, 100) !=
 		    OS_SYNC_TIME_EXCEEDED) {
 			break;
 		}
